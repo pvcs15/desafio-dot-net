@@ -1,0 +1,33 @@
+﻿@model PagedList.IPagedList<TheMovie.Models.moviesResult>
+@using PagedList.Mvc;
+
+<table class="table table-bordered">
+
+    @foreach (var movie in Model)
+    {
+        var urlImage = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
+        <tr>
+            <td style="width:15%">
+
+               <img  src=" @urlImage" width="90%"/>
+            </td>
+            <td>
+                <div class="col-sm-6"  style="font-size: large;">
+                Title: @movie.title
+                </div>
+                <div class="col-sm-6"  style="font-size: large;">
+                    Rate: @movie.vote_average
+                </div>
+                <div class="clearfix">
+
+                </div>
+                <div class="col-sm-12">
+
+                @Html.ActionLink("Details", "Details", new { id = movie.id }, new { @class = "btn btn-default" })
+                </div>
+            </td>
+           
+        </tr>
+    }
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { OnBegin = "getstring" }))

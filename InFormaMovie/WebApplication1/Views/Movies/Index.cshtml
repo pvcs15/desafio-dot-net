@@ -1,0 +1,49 @@
+﻿@model IPagedList<WebApplication1.Models.MoviesResultModel>
+@using X.PagedList.Mvc;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core
+
+<div id="body">
+    @Html.Hidden("stringSearch")
+    @Html.Hidden("page")
+
+        <div id="imaginary_container" style="width: 256px; margin-bottom:10px">
+            <div class="input-group stylish-input-group" style="">
+                <input type="text" class="form-control" id="search" placeholder="Search your movie">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-search"></span>
+                </span>
+            </div>
+        </div>
+    <div class="clearfix"></div>
+    <div id="table" style="width:75%">
+        @await Html.PartialAsync("IndexAsync", Model)
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#search').keyup(function (e) {
+            e.preventDefault();
+            getstring();
+        });
+    });
+    function getstring() {
+        var search = $('#search').val();
+        var page;
+        page = null;
+        $('#stringSearch').val(search);
+        $('#page').val(page);
+        $.ajax({
+            type: "Post",
+            data: { page: page, stringSearch: search },
+            url: "/IndexAsync",
+            success: function (data) {
+                $('#table').html(data);
+            }
+        });
+    }
+
+
+</script>

@@ -1,0 +1,85 @@
+﻿@model IPagedList<WebApplication1.Models.MoviesResultModel>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+<table class="table table-bordered">
+
+    @foreach (var movie in Model)
+    {
+        var urlImage = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
+        <tr>
+            <td style="width:15%">
+
+                <img src=" @urlImage" width="90%" />
+            </td>
+            <td>
+                <div class="col-sm-6" style="font-size: large;">
+                    <strong>
+                        Title:
+                    </strong>
+                    <span>
+
+                        @movie.title
+                    </span>
+                </div>
+                <div class="col-sm-6" style="font-size: large;">
+                    <strong>
+                        Rate:
+                    </strong>
+                    <span>
+
+                        @movie.vote_average
+                    </span>
+
+                </div>
+
+                <div class="col-sm-6" style="font-size: large;">
+                    <strong>
+                        Vote Count:
+                    </strong>
+                    <span>
+
+                        @movie.vote_count
+                    </span>
+
+                </div>
+                <div class="col-sm-6" style="font-size: large;">
+                    <strong>
+                        Popularity:
+                    </strong>
+                    <span>
+
+                        @movie.popularity
+                    </span>
+
+                </div>
+                <div class="col-sm-6" style="font-size: large;">
+                    <strong>
+                        Language:
+                    </strong>
+                    <span>
+
+                        @movie.original_language
+                    </span>
+
+                </div>
+                <div class="col-sm-6" style="font-size: large;">
+                    <strong>
+                        Original Title:
+                    </strong>
+                    <span>
+
+                        @movie.original_title
+                    </span>
+
+                </div>
+
+                <div class="col-sm-12" style="margin-top:40px">
+
+                    @Html.ActionLink("More Information", "Details", new { id = movie.id }, new { @class = "btn btn-danger" })
+                </div>
+            </td>
+
+        </tr>
+    }
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

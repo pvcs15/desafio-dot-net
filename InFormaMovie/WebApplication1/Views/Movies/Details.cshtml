@@ -1,0 +1,50 @@
+﻿@model WebApplication1.Models.MoviesResultModel
+@{
+    ViewBag.Title = "Details";
+}
+<div class="row" id="card">
+
+    <div class="col-sm-4">
+        @{var urlImage = "https://image.tmdb.org/t/p/w500" + @Model.poster_path; }
+        <img src="@urlImage" width="100%" />
+    </div>
+    <div class="col-sm-8">
+        <div class="col-sm-12" style="font-size: large;">
+            <strong>
+                Title:
+            </strong>
+            <span>
+                @Model.title
+            </span>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-12">
+
+            <strong>
+                Sinopse:
+            </strong>
+
+            <div class="col-sm-12">
+
+                @Model.overview
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" style="margin-bottom:5px">
+        @Html.ActionLink("Return List", "Index","Movies",null, new { @class = "btn btn-primary pull-right" })
+    </div>
+</div>
+<style>
+    #card {
+        margin-right: -15px;
+        margin-left: -15px;
+        width: 80%;
+        margin: 20px auto;
+        background-color: #ffffff;
+        border: 1px solid #e1e1e1;
+    }
+
+    .body-content {
+        background-color: #ededed;
+    }
+</style>
